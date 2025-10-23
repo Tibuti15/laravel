@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Career;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
@@ -68,5 +69,65 @@ class CareerController extends Controller
 
         Session::flash('success', 'Carrera ACTUALIZADA exitosamente');
         return redirect()->route('careers.listar');
+=======
+use Illuminate\Http\Request;
+
+class CareerController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+>>>>>>> 81be8a41ed8711e58c0ca86cf24a314065de9a04
     }
 }

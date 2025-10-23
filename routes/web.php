@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FacultyController;
+<<<<<<< HEAD
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\TeacherController;
 
@@ -38,3 +39,12 @@ Route::get('/teachers/editar/{id}', [TeacherController::class, 'editar'])->name(
 Route::post('/teachers/procesar-edicion/{id}', [TeacherController::class, 'procesarEdicion'])->name('teachers.procesarEdicion');
 Route::get('/teachers/eliminar/{id}', [TeacherController::class, 'eliminar'])->name('teachers.eliminar');
 Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('teachers.show');
+=======
+
+// Ruta principal del sitio: muestra las facultades
+Route::get('/', [FacultyController::class, 'index'])->name('home');
+
+// CRUD completo de facultades
+Route::resource('faculties', FacultyController::class);
+
+>>>>>>> 81be8a41ed8711e58c0ca86cf24a314065de9a04
