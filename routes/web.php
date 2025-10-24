@@ -6,7 +6,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\TeacherController;
 
 // ------------------- RUTA PRINCIPAL -------------------
-// Puedes elegir listar() o index()
+// Página principal: muestra el listado de facultades
 Route::get('/', [FacultyController::class, 'listar'])->name('home');
 
 // ------------------- FACULTY -------------------
@@ -17,9 +17,6 @@ Route::get('/faculties/editar/{id}', [FacultyController::class, 'editar'])->name
 Route::post('/faculties/procesar-edicion/{id}', [FacultyController::class, 'procesarEdicion'])->name('faculties.procesarEdicion');
 Route::get('/faculties/eliminar/{id}', [FacultyController::class, 'eliminar'])->name('faculties.eliminar');
 Route::get('/faculties/{id}', [FacultyController::class, 'show'])->name('faculties.show');
-
-// CRUD automático (opcional, si quieres tenerlo además)
-Route::resource('faculties', FacultyController::class);
 
 // ------------------- CAREER -------------------
 Route::get('/careers', [CareerController::class, 'listar'])->name('careers.listar');
@@ -38,5 +35,4 @@ Route::get('/teachers/editar/{id}', [TeacherController::class, 'editar'])->name(
 Route::post('/teachers/procesar-edicion/{id}', [TeacherController::class, 'procesarEdicion'])->name('teachers.procesarEdicion');
 Route::get('/teachers/eliminar/{id}', [TeacherController::class, 'eliminar'])->name('teachers.eliminar');
 Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('teachers.show');
-
 
