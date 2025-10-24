@@ -2,14 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FacultyController;
-<<<<<<< HEAD
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\TeacherController;
 
 // ------------------- RUTA PRINCIPAL -------------------
-// Cambiado para usar el método listar que sí existe
+// Puedes elegir listar() o index()
 Route::get('/', [FacultyController::class, 'listar'])->name('home');
-
 
 // ------------------- FACULTY -------------------
 Route::get('/faculties', [FacultyController::class, 'listar'])->name('faculties.listar');
@@ -20,6 +18,8 @@ Route::post('/faculties/procesar-edicion/{id}', [FacultyController::class, 'proc
 Route::get('/faculties/eliminar/{id}', [FacultyController::class, 'eliminar'])->name('faculties.eliminar');
 Route::get('/faculties/{id}', [FacultyController::class, 'show'])->name('faculties.show');
 
+// CRUD automático (opcional, si quieres tenerlo además)
+Route::resource('faculties', FacultyController::class);
 
 // ------------------- CAREER -------------------
 Route::get('/careers', [CareerController::class, 'listar'])->name('careers.listar');
@@ -30,7 +30,6 @@ Route::post('/careers/procesar-edicion/{id}', [CareerController::class, 'procesa
 Route::get('/careers/eliminar/{id}', [CareerController::class, 'eliminar'])->name('careers.eliminar');
 Route::get('/careers/{id}', [CareerController::class, 'show'])->name('careers.show');
 
-
 // ------------------- TEACHER -------------------
 Route::get('/teachers', [TeacherController::class, 'listar'])->name('teachers.listar');
 Route::get('/teachers/nuevo', [TeacherController::class, 'nuevo'])->name('teachers.nuevo');
@@ -39,12 +38,5 @@ Route::get('/teachers/editar/{id}', [TeacherController::class, 'editar'])->name(
 Route::post('/teachers/procesar-edicion/{id}', [TeacherController::class, 'procesarEdicion'])->name('teachers.procesarEdicion');
 Route::get('/teachers/eliminar/{id}', [TeacherController::class, 'eliminar'])->name('teachers.eliminar');
 Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('teachers.show');
-=======
 
-// Ruta principal del sitio: muestra las facultades
-Route::get('/', [FacultyController::class, 'index'])->name('home');
 
-// CRUD completo de facultades
-Route::resource('faculties', FacultyController::class);
-
->>>>>>> 81be8a41ed8711e58c0ca86cf24a314065de9a04
