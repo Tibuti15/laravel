@@ -18,7 +18,7 @@
 
 <table class="table table-bordered table-striped table-hover" id="tbl_faculties">
     <thead>
-        <tr class="big-primary text-white">
+        <tr class="bg-primary text-white">
             <th>ID</th>
             <th>Nombre</th>
             <th>Acrónimo</th>
@@ -52,12 +52,22 @@
                 <a href="{{ route('faculties.editar', $faculty->id_fac) }}" class="btn btn-outline-warning btn-sm" title="Editar">
                     <i class="fa fa-pen"></i>
                 </a>
+
+                <!-- Botón SweetAlert2 -->
                 <a href="#"
                    data-id="{{ $faculty->id_fac }}"
                    class="btn btn-outline-danger btn-sm btnEliminar"
                    title="Eliminar">
                     <i class="fa fa-trash"></i>
                 </a>
+
+                <!-- Formulario oculto DELETE -->
+                <form id="formEliminar-{{ $faculty->id_fac }}" 
+                      action="{{ route('faculties.destroy', $faculty->id_fac) }}" 
+                      method="POST" style="display:none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
             </td>
         </tr>
         @endforeach
@@ -67,12 +77,24 @@
 @endsection
 
 @section('extra_js')
+<!-- jQuery y DataTables (ya debes tenerlos cargados en tu layout) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 $(document).ready(function() {
 
+    // Botón eliminar con SweetAlert2
     $('.btnEliminar').click(function(e) {
         e.preventDefault();
         const id = $(this).data('id');
+        const form = $(`#formEliminar-${id}`);
 
         Swal.fire({
             title: "¿Estás seguro?",
@@ -85,11 +107,12 @@ $(document).ready(function() {
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = `/faculties/eliminar/${id}`;
+                form.submit(); // ✅ Se envía el formulario DELETE
             }
         });
     });
 
+    // Inicializar DataTable
     $('#tbl_faculties').DataTable({
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
