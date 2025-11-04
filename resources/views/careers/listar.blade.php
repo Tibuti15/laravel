@@ -1,10 +1,27 @@
-@extends('index') <!-- Usamos la misma plantilla base del diseño anterior -->
+@extends('index')
 
 @section('contenido')
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-10 bg-light p-4 shadow rounded">
             <h2 class="text-center mb-4 text-primary">Listado de Carreras</h2>
+
+            {{-- ✅ AGREGAR MENSAJES DE ALERTA --}}
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            @endif
+
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            @endif
 
             <div class="d-flex justify-content-end mb-3">
                 <a href="{{ route('careers.nuevo') }}" class="btn btn-success">
@@ -26,7 +43,13 @@
                     <tr>
                         <td class="text-center">{{ $career->id_career }}</td>
                         <td>{{ $career->name_career }}</td>
-                        <td>{{ $career->faculty->name_fac ?? 'Sin Facultad' }}</td>
+                        <td>
+                            @if($career->faculty && $career->faculty->name_fac)
+                                {{ $career->faculty->name_fac }}
+                            @else
+                                <span class="text-muted">Sin Facultad</span>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <a href="{{ route('careers.editar', $career->id_career) }}" 
                                class="btn btn-outline-warning btn-sm" 
@@ -45,18 +68,18 @@
                     @endforeach
                 </tbody>
             </table>
-
-            
         </div>
     </div>
 </div>
 @endsection
 
 @section('extra_js')
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 $(document).ready(function() {
 
-    // --- Confirmación de eliminación ---
     $('.btnEliminar').click(function(e) {
         e.preventDefault();
         const id = $(this).data('id');
@@ -77,7 +100,6 @@ $(document).ready(function() {
         });
     });
 
-    // --- Inicialización de DataTable ---
     $('#tbl_careers').DataTable({
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],

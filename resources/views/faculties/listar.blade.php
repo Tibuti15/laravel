@@ -4,6 +4,23 @@
 
 @section('contenido')
 
+{{-- ✅ AGREGAR ESTOS MENSAJES DE ALERTA --}}
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
+
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle me-2"></i>
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
+
 <br>
 <h1 class="text-center">Listado de Facultades</h1>
 <hr>
@@ -53,7 +70,6 @@
                     <i class="fa fa-pen"></i>
                 </a>
 
-                <!-- Botón SweetAlert2 -->
                 <a href="#"
                    data-id="{{ $faculty->id_fac }}"
                    class="btn btn-outline-danger btn-sm btnEliminar"
@@ -61,7 +77,7 @@
                     <i class="fa fa-trash"></i>
                 </a>
 
-                <!-- Formulario oculto DELETE -->
+                
                 <form id="formEliminar-{{ $faculty->id_fac }}" 
                       action="{{ route('faculties.destroy', $faculty->id_fac) }}" 
                       method="POST" style="display:none;">
@@ -77,7 +93,6 @@
 @endsection
 
 @section('extra_js')
-<!-- jQuery y DataTables (ya debes tenerlos cargados en tu layout) -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
@@ -90,7 +105,6 @@
 <script>
 $(document).ready(function() {
 
-    // Botón eliminar con SweetAlert2
     $('.btnEliminar').click(function(e) {
         e.preventDefault();
         const id = $(this).data('id');
@@ -107,12 +121,12 @@ $(document).ready(function() {
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit(); // ✅ Se envía el formulario DELETE
+                form.submit(); 
             }
         });
     });
 
-    // Inicializar DataTable
+
     $('#tbl_faculties').DataTable({
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -123,4 +137,4 @@ $(document).ready(function() {
 
 });
 </script>
-@endsection
+@endsections

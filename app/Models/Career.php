@@ -26,9 +26,6 @@ class Career extends Model
         return $this->belongsTo(Faculty::class, 'id_fac', 'id_fac');
     }
 
-    /**
-     * Una carrera tiene muchos profesores
-     */
     public function teachers()
     {
         return $this->hasMany(Teacher::class, 'id_career', 'id_career');

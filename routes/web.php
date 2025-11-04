@@ -5,7 +5,7 @@ use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\TeacherController;
 
-// ------------------- RUTA PRINCIPAL -------------------
+// Ruta principal
 Route::get('/', [FacultyController::class, 'listar'])->name('home');
 
 // ------------------- FACULTY -------------------
@@ -15,13 +15,14 @@ Route::post('/faculties/guardar', [FacultyController::class, 'guardar'])->name('
 Route::get('/faculties/editar/{id}', [FacultyController::class, 'editar'])->name('faculties.editar');
 Route::post('/faculties/procesar-edicion/{id}', [FacultyController::class, 'procesarEdicion'])->name('faculties.procesarEdicion');
 
-// ✅ Ruta DELETE para tu formulario
+
+Route::post('/faculties/check-acronym', [FacultyController::class, 'checkAcronym'])->name('faculties.checkAcronym');
+Route::post('/faculties/check-name', [FacultyController::class, 'checkName'])->name('faculties.checkName');
+
+Route::get('/faculties/eliminar/{id}', [FacultyController::class, 'eliminar'])->name('faculties.eliminar');
 Route::delete('/faculties/{id}', [FacultyController::class, 'destroy'])->name('faculties.destroy');
 
-// Ruta GET antigua (opcional, compatibilidad)
-Route::get('/faculties/eliminar/{id}', [FacultyController::class, 'eliminar'])->name('faculties.eliminar');
-
-Route::get('/faculties/{id}', [FacultyController::class, 'show'])->name('faculties.show');
+Route::get('/faculties/mostrar/{id}', [FacultyController::class, 'show'])->name('faculties.show');
 
 // ------------------- CAREER -------------------
 Route::get('/careers', [CareerController::class, 'listar'])->name('careers.listar');
@@ -30,13 +31,11 @@ Route::post('/careers/guardar', [CareerController::class, 'guardar'])->name('car
 Route::get('/careers/editar/{id}', [CareerController::class, 'editar'])->name('careers.editar');
 Route::post('/careers/procesar-edicion/{id}', [CareerController::class, 'procesarEdicion'])->name('careers.procesarEdicion');
 
-// Ruta DELETE para carreras
+
+Route::get('/careers/eliminar/{id}', [CareerController::class, 'eliminar'])->name('careers.eliminar');
 Route::delete('/careers/{id}', [CareerController::class, 'destroy'])->name('careers.destroy');
 
-// Ruta GET antigua (opcional)
-Route::get('/careers/eliminar/{id}', [CareerController::class, 'eliminar'])->name('careers.eliminar');
-
-Route::get('/careers/{id}', [CareerController::class, 'show'])->name('careers.show');
+Route::get('/careers/mostrar/{id}', [CareerController::class, 'show'])->name('careers.show');
 
 // ------------------- TEACHER -------------------
 Route::get('/teachers', [TeacherController::class, 'listar'])->name('teachers.listar');
@@ -45,11 +44,7 @@ Route::post('/teachers/guardar', [TeacherController::class, 'guardar'])->name('t
 Route::get('/teachers/editar/{id}', [TeacherController::class, 'editar'])->name('teachers.editar');
 Route::post('/teachers/procesar-edicion/{id}', [TeacherController::class, 'procesarEdicion'])->name('teachers.procesarEdicion');
 
-// Ruta DELETE para profesores
+Route::get('/teachers/eliminar/{id}', [TeacherController::class, 'eliminar'])->name('teachers.eliminar');
 Route::delete('/teachers/{id}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
 
-// Ruta GET antigua (opcional)
-Route::get('/teachers/eliminar/{id}', [TeacherController::class, 'eliminar'])->name('teachers.eliminar');
-
-Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('teachers.show');
-
+Route::get('/teachers/mostrar/{id}', [TeacherController::class, 'show'])->name('teachers.show');
